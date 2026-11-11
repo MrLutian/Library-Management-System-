@@ -1,0 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" %><%@ page import="java.sql.ResultSet" %>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>读者管理</title><link rel="stylesheet" href="${pageContext.request.contextPath}/assets/style.css"></head><body>
+<header><b>高校图书管理系统</b><span><a href="${pageContext.request.contextPath}/logout">退出</a></span></header><nav><a href="${pageContext.request.contextPath}/dashboard">首页</a><a href="${pageContext.request.contextPath}/books">图书管理</a><a class="active" href="${pageContext.request.contextPath}/readers">读者管理</a><a href="${pageContext.request.contextPath}/borrows">借阅管理</a></nav>
+<main><h2>读者管理</h2><section class="panel"><h3>新增读者</h3><form class="form-grid" method="post"><input name="readerNo" placeholder="读者编号" required><input name="name" placeholder="姓名" required><input name="phone" placeholder="联系电话"><input name="email" placeholder="电子邮箱"><button>保存读者</button></form></section>
+<section class="panel"><h3>读者列表</h3><table><tr><th>ID</th><th>读者编号</th><th>姓名</th><th>电话</th><th>邮箱</th><th>操作</th></tr>
+<% ResultSet rs=(ResultSet)request.getAttribute("readers"); while(rs.next()){ %><tr><td><%=rs.getLong("id")%></td><td><%=rs.getString("reader_no")%></td><td><%=rs.getString("name")%></td><td><%=rs.getString("phone")%></td><td><%=rs.getString("email")%></td><td><a class="danger" href="?action=delete&id=<%=rs.getLong("id")%>" onclick="return confirm('确定删除？')">删除</a></td></tr><% } rs.close(); %>
+</table></section></main></body></html>
